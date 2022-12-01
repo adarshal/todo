@@ -1,0 +1,40 @@
+module.exports.delete = function (req, res) {
+       
+
+        // console.log(req);
+        const Todo = require('../model/todo');
+        // if user havnt seletected any task
+        if (req.body.id == undefined) {
+                console.log('User doesnt selected tasks to delete');
+                return res.redirect('back');
+        }
+        // if user  seletected 1 task to delete 
+        else if(typeof(req.body.id) == 'string'){
+                console.log('User  selected 1 tasks to delete');
+                Todo.findByIdAndDelete(req.body.id, function(err){
+                        if(err){
+                            console.log('error in deleting the object');
+                            return;
+                        }
+        return res.redirect('back');
+
+        });
+        }
+        // if User  selected many tasks to delete
+        else {
+                console.log('User  selected many tasks to delete');
+                for (let i of req.body.id) {
+                        console.log(i);
+                        Todo.findByIdAndDelete(i, function (err) {
+                                if (err) {
+                                        console.log('error in deleting the task');
+                                        return;
+                                }
+                        });
+                }
+              //  return res.redirect('back');
+        }
+
+        return res.redirect('back');
+
+};

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>
+    <%= title %>
+  </title>
+  <!-- font styles  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&family=Ubuntu:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- animation.css  -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/> -->
+
+  <!-- fontawesome  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <!-- // this adress not need assets/css .. because app.use(express.static('assets')); used -->
+</head>
+<link rel="stylesheet" href="/css/home.css">
+<!-- // this adress not need assets/css .. because app.use(express.static('assets')); used -->
+</head>
+
+<body>
+  <h1>To Do App</h1>
+
+  <div class="add-task">
+    <form action="/create-task" method="POST">
+      <div class="description">
+
+
+        <label for="description"></label>
+        <input class="add-task" type="text" id="description" name="description" placeholder="Enter description"
+          required>
+      </div>
+      <div class="date-category">
+
+
+        <label for="category">Category</label>
+        <select id="category" name="category" class="category-select" required>
+          <option value="Home">Home</option>
+          <option value="Work">Work</option>
+          <option value="Health">Health</option>
+          <option value="Important">Important</option>
+          <option value="Other">Other</option>
+        </select>
+        <label for="date">Due Date</label>
+        <input type="date" name="dueDate" class="date-calender" id="date">
+      </div>
+      <div class="button">
+
+
+        <button type="submit" class="btn add-button"> <i class="fa-solid fa-plus"></i> Add Task</button>
+        
+      </div>
+    </form>
+
+  </div>
+
+  <!-- this div will show list of tasks  -->
+  <div class="task-holder">
+    <form action="/delete-tasks-many" type="submit" method="POST" id="tasks-list-form">
+      <button class="btn delete-button" id="deleteButton"  > 
+        <i class="fa-solid fa-trash-can"></i> Delete
+        Tasks</button>
+      <% for (let i of todo_list) { %>
+        <div class="tasks">
+          <hr>
+          <!-- <input type="checkbox" name="delechack" class="delechack" onclick="checkedOrNot()" uid = <%= i.id %> value="<%= i.id %>">  -->
+          <input id="check" type="checkbox" name="id"  value="<%= i.id %>" class="checkbox">
+          <div class="description-date-container">
+            <div class="show-description">
+              <%= i.description %>
+                <!-- <%= i.id %>  -->
+            </div>
+            <div class="show-Date">
+              <i class="fa-solid fa-calendar-days"></i>
+              <%= i.dueDate %>
+            </div>
+          </div>
+          <div class="right-container">
+            <div class="category-show <%= i.category %>" data-cat="<%= i.category %>">
+              <p>
+                <%= i.category %>
+              </p>
+            </div>
+            <div class="delete-icon">
+              <a href="/delete-task/?id=<%= i.id %>">
+                <i class="fa-solid fa-trash-can"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <% } %>
+    </form>
+
+  </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <script src="/js/home.js"></script>
+</body>
+
+</html>

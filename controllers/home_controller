@@ -1,0 +1,19 @@
+module.exports.home=function(req,res){
+    // res.end('<h1>Express up for codeial from controller ');
+    const Todo=require('../model/todo');
+    Todo.find({},function(err,todo){  // here inside find  empty {} used cause i want to find every thing from db
+        // if you use Contact.find({name:'RandomName'},function(err,contact){ it will only find entry witha RandomName name.
+            if(err){ 
+                console.log('Error in getting contact');
+                return;
+            }
+            return res.render('home',{
+            title :'TO Do App' ,
+               todo_list: todo
+            })
+       })
+
+//    return res.render('home',{
+//         title : 'TODO app'
+//     })
+}

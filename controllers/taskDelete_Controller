@@ -1,0 +1,17 @@
+module.exports.delete=function(req,res){
+    // console.log('here',req);
+    let id = req.query.id;
+    const Todo=require('../model/todo');
+
+
+    Todo.findOneAndDelete(id, function(err){
+        if(err){
+            console.log('error in deleting the object');
+            return;
+        }
+
+    return res.redirect('back');
+
+});
+
+}
